@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-lg-2">
+        <nb-card>
+            <nb-card-header>Training Model 1</nb-card-header>
+            <nb-card-body>
+                <div class="form-group">
+                    <label>Select Model's Kernel</label>
+                    <select class="form-control" (change)="selectChange($event)" >
+                        <option *ngFor="let oneOption of kernelOptions" [ngValue]="oneOption.id">{{ oneOption.name }}</option>
+                    </select>
+                </div>
+                <div class="btn-with-icon-example">
+                    <button type="button" class="btn btn-primary btn-with-icon" (click)="fileUpload.click()">
+                        <i class="fa fa-upload"></i>
+                        <span>  Upload Feature CSV</span>
+                    </button>
+                    <input type="file" (change)="onChange($event)" #fileUpload hidden>
+                </div>
+                <br/>
+                <span ng-if="file.name" style="color:lightseagreen">{{ file?.name }}</span>
+                <hr/>
+                <button nbButton status="info" size="medium" (click)="upload()"
+                        [nbSpinner]="loadingMediumGroup" nbSpinnerStatus="info" nbSpinnerMessage="Training">
+                    Train & Test Model
+                </button>
+
+                <hr/>
+                <br/>
+
+                <span *ngIf="accuracy" style="color:lightseagreen"> Accuracy: {{ accuracy }}</span>
+                <!-- <button type="button" class="btn btn-demo btn-success" (click)="upload()"> Train & Test Model</button>-->
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+
+    <div class="col-lg-10">
+        <nb-card>
+            <nb-card-header>
+
+            </nb-card-header>
+            <nb-card-body>
+                <ng2-smart-table [settings]="grapherEntities_table_settings" [source]="sourceGrapherEntities" (delete)="onDeleteGrapherEntities($event)" (edit)="onEditGrapherEntities($event)">
+                </ng2-smart-table>
+            </nb-card-body>
+
+        </nb-card>
+    </div>
+</div>
